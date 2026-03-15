@@ -289,6 +289,94 @@
             fill: #0084FF;
         }
 
+        /* --- CARRITO DE COMPRAS (MODAL) --- */
+        .cart-sidebar {
+            position: fixed;
+            top: 0;
+            right: -400px;
+            width: 350px;
+            height: 100vh;
+            background: white;
+            box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+            z-index: 2000;
+            transition: right 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .cart-sidebar.active {
+            right: 0;
+        }
+
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        .cart-header h2 { margin: 0; color: var(--purple-bg); font-size: 20px;}
+        
+        .close-cart {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #888;
+        }
+
+        .cart-items {
+            flex-grow: 1;
+            overflow-y: auto;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .cart-item-info { font-size: 14px; max-width: 70%; }
+        .cart-item-price { font-weight: bold; color: var(--pink); font-size: 14px;}
+        
+        .remove-btn {
+            background: #ff4444; color: white; border: none;
+            border-radius: 50%; width: 20px; height: 20px;
+            cursor: pointer; font-size: 10px; margin-left: 10px;
+        }
+
+        .cart-footer {
+            border-top: 2px solid #eee;
+            padding-top: 20px;
+            margin-top: auto;
+        }
+
+        .cart-total {
+            display: flex; justify-content: space-between;
+            font-size: 18px; font-weight: bold; margin-bottom: 15px;
+        }
+
+        .btn-checkout {
+            width: 100%; background: var(--purple-bg); color: white;
+            border: none; padding: 15px; border-radius: 5px;
+            font-weight: bold; cursor: pointer; text-transform: uppercase;
+        }
+        
+        .btn-checkout:hover { background: var(--light-purple); }
+
+        .cart-badge {
+            background: var(--pink); color: white; border-radius: 50%;
+            padding: 2px 6px; font-size: 10px; position: absolute;
+            top: -5px; right: -10px; font-weight: bold;
+            transition: transform 0.2s;
+        }
+
         /* --- RESPONSIVO --- */
         @media (max-width: 768px) {
             .hero h1 { font-size: 40px; }
@@ -305,9 +393,10 @@
             <input type="text" id="buscador" placeholder="¿Qué producto personalizado buscas hoy?">
         </div>
         <div class="user-icons">
-            <span onclick="alert('Próximamente: Sistema de cuentas')">👤 Mi cuenta</span>
-            <span onclick="alert('Próximamente: Favoritos')">❤️</span>
-            <span onclick="document.getElementById('catalogo').scrollIntoView()">🛒</span>
+            <span onclick="alert('Guarda nuestra página en tus favoritos de tu navegador 🌟')">❤️ Favoritos</span>
+            <span style="position: relative;" onclick="toggleCarrito()">
+                🛒 Carrito <span id="cart-badge" class="cart-badge">0</span>
+            </span>
         </div>
     </header>
 
@@ -398,29 +487,133 @@
         Chat en línea
     </a>
 
+    <!-- MENÚ LATERAL DEL CARRITO -->
+    <div id="cart-sidebar" class="cart-sidebar">
+        <div class="cart-header">
+            <h2>Tu Pedido</h2>
+            <button class="close-cart" onclick="toggleCarrito()">×</button>
+        </div>
+        <div id="cart-items" class="cart-items">
+            <p style="text-align:center; color:#888; margin-top:50px;">Tu carrito está vacío</p>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total Estimado:</span>
+                <span id="cart-total-price">$0.00</span>
+            </div>
+            <button class="btn-checkout" onclick="enviarPedido()">Hacer Pedido por Messenger</button>
+        </div>
+    </div>
+
     <footer style="text-align: center; padding: 40px; background: white; margin-top: 20px; font-size: 12px; color: #888;">
         &copy; 2026 DISEÑOS GABY | DISEÑO PROFESIONAL PERSONALIZADO
     </footer>
 
     <!-- SCRIPT PARA ACTIVAR EL BUSCADOR Y ANIMACIONES -->
     <script>
+        // --- BUSCADOR ---
         const buscador = document.getElementById('buscador');
         const filasPrecios = document.querySelectorAll('.pricing-table tbody tr');
 
         buscador.addEventListener('input', function(e) {
             const termino = e.target.value.toLowerCase();
-            
-            // Desplazar automáticamente a la tabla si el usuario empieza a buscar
-            if(termino.length === 1) {
-                document.getElementById('catalogo').scrollIntoView({ behavior: 'smooth' });
-            }
-
-            // Filtrar los productos
+            if(termino.length === 1) document.getElementById('catalogo').scrollIntoView({ behavior: 'smooth' });
             filasPrecios.forEach(fila => {
                 const texto = fila.textContent.toLowerCase();
                 fila.style.display = texto.includes(termino) ? '' : 'none';
             });
         });
+
+        // --- SISTEMA DE CARRITO DE COMPRAS ---
+        let carrito = [];
+        const cartSidebar = document.getElementById('cart-sidebar');
+        const cartBadge = document.getElementById('cart-badge');
+        const cartItemsCont = document.getElementById('cart-items');
+        const cartTotalPrice = document.getElementById('cart-total-price');
+
+        // Agregar columna de botón a la tabla automáticamente
+        document.querySelector('.pricing-table thead tr').innerHTML += '<th style="text-align: center;">Acción</th>';
+        filasPrecios.forEach(fila => {
+            const celdas = fila.querySelectorAll('td');
+            const nombre = celdas[0].innerText;
+            const precio = parseFloat(celdas[1].innerText.replace('$', ''));
+            
+            const btnTd = document.createElement('td');
+            btnTd.style.textAlign = 'center';
+            btnTd.innerHTML = `<button onclick="agregarAlCarrito('${nombre}', ${precio})" style="background:var(--cyan); color:var(--purple-bg); border:none; padding:5px 15px; border-radius:5px; font-weight:bold; cursor:pointer;">Añadir</button>`;
+            fila.appendChild(btnTd);
+        });
+
+        function toggleCarrito() {
+            cartSidebar.classList.toggle('active');
+        }
+
+        function agregarAlCarrito(nombre, precio) {
+            carrito.push({ nombre, precio });
+            actualizarUI();
+            
+            // Animación del número
+            cartBadge.style.transform = 'scale(1.5)';
+            setTimeout(() => cartBadge.style.transform = 'scale(1)', 200);
+            
+            // Abrir el carrito la primera vez
+            if(carrito.length === 1 && !cartSidebar.classList.contains('active')) toggleCarrito();
+        }
+
+        function eliminarDelCarrito(index) {
+            carrito.splice(index, 1);
+            actualizarUI();
+        }
+
+        function actualizarUI() {
+            cartBadge.innerText = carrito.length;
+            cartItemsCont.innerHTML = '';
+            let total = 0;
+
+            if (carrito.length === 0) {
+                cartItemsCont.innerHTML = '<p style="text-align:center; color:#888; margin-top:50px;">Tu carrito está vacío</p>';
+            } else {
+                carrito.forEach((item, index) => {
+                    total += item.precio;
+                    cartItemsCont.innerHTML += `
+                        <div class="cart-item">
+                            <span class="cart-item-info">${item.nombre}</span>
+                            <div>
+                                <span class="cart-item-price">$${item.precio.toFixed(2)}</span>
+                                <button class="remove-btn" onclick="eliminarDelCarrito(${index})">X</button>
+                            </div>
+                        </div>
+                    `;
+                });
+            }
+            cartTotalPrice.innerText = `$${total.toFixed(2)}`;
+        }
+
+        function enviarPedido() {
+            if (carrito.length === 0) {
+                alert('Agrega al menos un producto a tu carrito.');
+                return;
+            }
+            
+            let texto = "Hola Diseños Gaby, me interesa pedir:\n\n";
+            let total = 0;
+            carrito.forEach(item => {
+                texto += `✅ ${item.nombre} ($${item.precio})\n`;
+                total += item.precio;
+            });
+            texto += `\n*Total Estimado: $${total}*\n¿Cómo puedo proceder con el pago y diseño?`;
+
+            // Intenta copiar al portapapeles y abre Messenger
+            try {
+                navigator.clipboard.writeText(texto).then(() => {
+                    alert('🛒 ¡Lista copiada! Se abrirá Messenger, solo PEGA el texto en el chat para enviarnos tu pedido.');
+                    window.open('https://m.me/139744146200862', '_blank');
+                });
+            } catch (err) {
+                // Si el navegador bloquea copiar (pasa en algunos celulares viejos)
+                window.open('https://m.me/139744146200862', '_blank');
+            }
+        }
     </script>
 </body>
 </html>
