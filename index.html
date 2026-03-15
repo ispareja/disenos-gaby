@@ -3,131 +3,147 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Diseños Gaby | Creatividad Visual</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+    <title>Diseños Gaby | Home & Design</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --accent: #ff758c;
-            --gradient: linear-gradient(135deg, #ff758c 0%, #ff7eb3 100%);
-            --dark: #1a1a1a;
-            --light: #f4f4f9;
-        }
-
         body {
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Inter', sans-serif;
             margin: 0;
-            background-color: var(--light);
-            color: var(--dark);
+            padding: 0;
+            background-color: #ffffff;
+            color: #1a1a1a;
         }
 
-        header {
-            background: var(--dark);
-            color: white;
-            padding: 3rem 1rem;
-            text-align: center;
-            border-bottom: 5px solid var(--accent);
+        /* Navegación sutil */
+        nav {
+            padding: 20px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #eee;
         }
 
-        header h1 { margin: 0; font-size: 2.5rem; letter-spacing: 2px; }
+        .logo { font-weight: 600; letter-spacing: 2px; text-transform: uppercase; }
 
+        /* Banner Principal estilo la imagen que mandaste */
         .hero {
-            padding: 5rem 1rem;
-            text-align: center;
-            background: white;
-            margin-bottom: 2rem;
-        }
-
-        .btn-contacto {
-            background: var(--gradient);
+            position: relative;
+            height: 80vh;
+            background: url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1200') no-repeat center center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             color: white;
-            padding: 15px 35px;
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: 600;
-            box-shadow: 0 4px 15px rgba(255, 117, 140, 0.4);
-            transition: transform 0.3s ease;
-            display: inline-block;
+            text-align: center;
         }
 
-        .btn-contacto:hover { transform: translateY(-3px); }
+        .hero-overlay {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 40px;
+            border-radius: 8px;
+        }
 
-        .portafolio {
-            max-width: 1100px;
-            margin: 0 auto;
+        .hero h2 { font-size: 3rem; margin: 0; font-weight: 300; }
+
+        /* Sección de categorías/productos */
+        .section-title {
+            text-align: center;
+            padding: 50px 0 20px;
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        .grid-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            padding: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 10px;
+            padding: 0 10px;
         }
 
-        .card {
-            background: white;
-            border-radius: 15px;
+        .grid-item {
+            position: relative;
+            height: 500px;
             overflow: hidden;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            background: #f4f4f4;
+        }
+
+        .grid-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s ease;
+        }
+
+        .grid-item:hover img { transform: scale(1.05); }
+
+        .item-info {
+            position: absolute;
+            bottom: 30px;
+            left: 30px;
+            color: white;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .btn-shop {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 10px 25px;
+            border: 1px solid white;
+            color: white;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
             transition: 0.3s;
         }
 
-        .card:hover { transform: scale(1.05); }
-
-        .card img {
-            width: 100%;
-            height: 250px;
-            object-fit: cover;
-            background: #eee;
-        }
-
-        .card-info { padding: 20px; text-align: center; }
-        .card-info h3 { margin: 0; color: var(--accent); }
+        .btn-shop:hover { background: white; color: black; }
 
         footer {
-            background: var(--dark);
-            color: rgba(255,255,255,0.7);
+            padding: 80px 20px;
             text-align: center;
-            padding: 3rem 1rem;
-            margin-top: 4rem;
+            font-size: 0.9rem;
+            color: #888;
         }
     </style>
 </head>
 <body>
 
-<header>
-    <h1>DISEÑOS GABY</h1>
-    <p style="font-weight: 300;">Arte digital que conecta con tus clientes</p>
-</header>
+<nav>
+    <div class="logo">Diseños Gaby</div>
+    <div>Menú</div>
+</nav>
 
 <section class="hero">
-    <h2 style="font-size: 2rem;">Hagamos realidad tu idea</h2>
-    <p>Diseño gráfico profesional con un toque moderno y único.</p>
-    <a href="https://wa.me/5210000000000" class="btn-contacto">Enviar mensaje por WhatsApp</a>
+    <div class="hero-overlay">
+        <h2>Nueva Colección</h2>
+        <p>Diseño que transforma espacios y marcas</p>
+        <a href="https://wa.me/TU_NUMERO" class="btn-shop">Ver Catálogo</a>
+    </div>
 </section>
 
-<div class="portafolio">
-    <div class="card">
-        <img src="https://images.unsplash.com/photo-1572044162444-ad60f128bde3?auto=format&fit=crop&w=500" alt="Logotipos">
-        <div class="card-info">
-            <h3>Logotipos Premium</h3>
-            <p>Identidad visual única.</p>
+<h3 class="section-title">Nuestros Servicios</h3>
+
+<div class="grid-container">
+    <div class="grid-item">
+        <img src="https://images.unsplash.com/photo-1513519247388-4e2645d48d6d?auto=format&fit=crop&w=600" alt="Decoración">
+        <div class="item-info">
+            <h3>Identidad de Marca</h3>
+            <a href="#" class="btn-shop">Explorar</a>
         </div>
     </div>
-    <div class="card">
-        <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&w=500" alt="Social Media">
-        <div class="card-info">
-            <h3>Redes Sociales</h3>
-            <p>Post y banners que venden.</p>
-        </div>
-    </div>
-    <div class="card">
-        <img src="https://images.unsplash.com/photo-1586717791821-3f44a563eb4c?auto=format&fit=crop&w=500" alt="Ilustración">
-        <div class="card-info">
-            <h3>Ilustración Digital</h3>
-            <p>Arte a medida para tu marca.</p>
+    <div class="grid-item">
+        <img src="https://images.unsplash.com/photo-1494438639946-1ebd1d20bf85?auto=format&fit=crop&w=600" alt="Hogar">
+        <div class="item-info">
+            <h3>Diseño de Interiores</h3>
+            <a href="#" class="btn-shop">Ver más</a>
         </div>
     </div>
 </div>
 
 <footer>
-    <p>&copy; 2026 Diseños Gaby | Hecho con creatividad</p>
+    <p>&copy; 2026 Diseños Gaby. Estética y Funcionalidad.</p>
 </footer>
 
 </body>
