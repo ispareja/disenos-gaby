@@ -23,6 +23,12 @@
             color: #333;
         }
 
+        /* --- NAVEGACIÓN SUAVE --- */
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 60px; /* Para que el menú no tape los títulos */
+        }
+
         /* --- ENCABEZADO SUPERIOR (MORADO) --- */
         header {
             background-color: var(--purple-bg);
@@ -77,6 +83,9 @@
             background-color: var(--purple-bg);
             border-top: 1px solid rgba(255,255,255,0.1);
             padding: 10px 5%;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
 
         nav ul {
@@ -288,68 +297,68 @@
         }
     </style>
 </head>
-<body>
+<body id="inicio">
 
     <header>
-        <div class="logo">Diseños Gaby</div>
+        <div class="logo"><a href="#inicio" style="color: white; text-decoration: none;">Diseños Gaby</a></div>
         <div class="search-container">
-            <input type="text" placeholder="¿Qué producto personalizado buscas hoy?">
+            <input type="text" id="buscador" placeholder="¿Qué producto personalizado buscas hoy?">
         </div>
         <div class="user-icons">
-            <span>👤 Mi cuenta</span>
-            <span>❤️</span>
-            <span>🛒</span>
+            <span onclick="alert('Próximamente: Sistema de cuentas')">👤 Mi cuenta</span>
+            <span onclick="alert('Próximamente: Favoritos')">❤️</span>
+            <span onclick="document.getElementById('catalogo').scrollIntoView()">🛒</span>
         </div>
     </header>
 
     <nav>
         <ul>
-            <li><a href="#">Inicio</a></li>
-            <li><a href="#">Sublimación</a></li>
-            <li><a href="#">Logotipos</a></li>
-            <li><a href="#">Playeras</a></li>
-            <li><a href="#">Tarjetas</a></li>
-            <li><a href="#">Ofertas</a></li>
+            <li><a href="#inicio">Inicio</a></li>
+            <li><a href="#catalogo">Sublimación</a></li>
+            <li><a href="#destacados">Logotipos</a></li>
+            <li><a href="#destacados">Playeras</a></li>
+            <li><a href="#catalogo">Tarjetas</a></li>
+            <li><a href="#ofertas">Ofertas</a></li>
         </ul>
     </nav>
 
-    <section class="hero">
+    <section id="ofertas" class="hero">
         <div class="promo-tag">DESCUENTO ESPECIAL - PRIMER PEDIDO</div>
         <h1>PERSONALIZA</h1>
         <div class="subtitle">TUS IDEAS SIN LÍMITES</div>
         
         <div class="hero-buttons">
-            <a href="#" class="hero-btn">Tazas</a>
-            <a href="#" class="hero-btn">Gorras</a>
-            <a href="#" class="hero-btn">Regalos</a>
+            <a href="#catalogo" class="hero-btn">Tazas</a>
+            <a href="#catalogo" class="hero-btn">Gorras</a>
+            <a href="#catalogo" class="hero-btn">Regalos</a>
         </div>
     </section>
 
-    <div class="content-grid">
+    <div id="destacados" class="content-grid">
         <div class="grid-card">
             <h2>Favoritos para Regalar</h2>
             <p>Tazas mágicas y personalizadas.</p>
-            <div class="tag">Ver colección</div>
+            <div class="tag"><a href="#catalogo" style="color: inherit; text-decoration: none;">Ver colección</a></div>
             <img src="https://images.unsplash.com/photo-1514228742587-6b1558fbed20?auto=format&fit=crop&w=500" alt="Taza personalizada">
         </div>
 
         <div class="grid-card">
             <h2>Identidad Visual</h2>
             <p>Creamos el logotipo de tus sueños.</p>
-            <div class="tag">Desde $199</div>
+            <div class="tag"><a href="#catalogo" style="color: inherit; text-decoration: none;">Desde $199</a></div>
             <img src="https://images.unsplash.com/photo-1626785774573-4b799315345d?auto=format&fit=crop&w=500" alt="Logotipo">
         </div>
 
         <div class="grid-card">
             <h2>Playeras Personalizadas</h2>
             <p>Vinil y sublimación de alta calidad.</p>
-            <div class="tag">Ver diseños</div>
+            <div class="tag"><a href="#catalogo" style="color: inherit; text-decoration: none;">Ver diseños</a></div>
             <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=500" alt="Playera personalizada">
         </div>
     </div>
 
     <!-- SECCIÓN DE PRECIOS -->
-    <section class="pricing-section">
+    <section id="catalogo" class="pricing-section">
         <h2>Catálogo de Precios</h2>
         <div class="table-container">
             <table class="pricing-table">
@@ -383,8 +392,8 @@
     </section>
 
     <!-- CHAT DE MESSENGER -->
-    <!-- Reemplaza NOMBRE_DE_TU_PAGINA por tu nombre de usuario de Facebook -->
-    <a href="https://m.me/TU_NOMBRE_DE_PAGINA" class="messenger-chat">
+    <!-- Reemplaza TU_NOMBRE_DE_PAGINA por tu nombre de usuario de Facebook -->
+    <a href="https://m.me/TU_NOMBRE_DE_PAGINA" target="_blank" class="messenger-chat">
         <svg viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.145 2 11.258c0 2.908 1.462 5.498 3.746 7.225V22l3.322-1.822c.903.25 1.86.386 2.85.386 5.523 0 10-4.145 10-9.258S17.523 2 12 2zm1.104 12.428l-2.583-2.753-5.043 2.753 5.545-5.889 2.653 2.753 4.973-2.753-5.545 5.889z"/></svg>
         Chat en línea
     </a>
@@ -393,5 +402,25 @@
         &copy; 2026 DISEÑOS GABY | DISEÑO PROFESIONAL PERSONALIZADO
     </footer>
 
+    <!-- SCRIPT PARA ACTIVAR EL BUSCADOR Y ANIMACIONES -->
+    <script>
+        const buscador = document.getElementById('buscador');
+        const filasPrecios = document.querySelectorAll('.pricing-table tbody tr');
+
+        buscador.addEventListener('input', function(e) {
+            const termino = e.target.value.toLowerCase();
+            
+            // Desplazar automáticamente a la tabla si el usuario empieza a buscar
+            if(termino.length === 1) {
+                document.getElementById('catalogo').scrollIntoView({ behavior: 'smooth' });
+            }
+
+            // Filtrar los productos
+            filasPrecios.forEach(fila => {
+                const texto = fila.textContent.toLowerCase();
+                fila.style.display = texto.includes(termino) ? '' : 'none';
+            });
+        });
+    </script>
 </body>
 </html>
