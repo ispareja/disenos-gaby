@@ -3,231 +3,395 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Diseños Gaby | Home & Design</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>Diseños Gaby | Productos Personalizados</title>
+    <!-- Fuente similar a la de la imagen -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --purple-bg: #32014d; /* El morado oscuro de la imagen */
+            --light-purple: #4a027d;
+            --cyan: #00f2ff;
+            --pink: #ff00e5;
+            --white: #ffffff;
+        }
+
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Montserrat', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #ffffff;
-            color: #1a1a1a;
-            overflow-x: hidden;
+            background-color: #f6f6f6;
+            color: #333;
         }
 
-        /* Navegación elegante */
-        nav {
-            padding: 20px 50px;
+        /* --- ENCABEZADO SUPERIOR (MORADO) --- */
+        header {
+            background-color: var(--purple-bg);
+            color: white;
+            padding: 15px 5%;
             display: flex;
+            align-items: center;
             justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid #eee;
-            position: sticky;
-            top: 0;
-            background: white;
-            z-index: 1000;
+            flex-wrap: wrap;
         }
 
-        .logo { 
-            font-weight: 600; 
-            letter-spacing: 3px; 
-            text-transform: uppercase; 
-            font-size: 1.2rem;
+        .logo {
+            font-weight: 800;
+            font-size: 24px;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+            cursor: pointer;
         }
 
-        /* Banner Principal inspirado en tu imagen */
-        .hero {
+        .search-container {
+            flex-grow: 1;
+            max-width: 500px;
+            margin: 0 20px;
             position: relative;
-            height: 85vh;
-            background: url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1200') no-repeat center center/cover;
+        }
+
+        .search-container input {
+            width: 100%;
+            padding: 10px 15px;
+            border-radius: 20px;
+            border: none;
+            outline: none;
+            font-size: 14px;
+        }
+
+        .user-icons {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .user-icons span {
+            font-size: 12px;
+            cursor: pointer;
             display: flex;
             align-items: center;
-            justify-content: center;
-            color: white;
-            text-align: center;
+            gap: 5px;
         }
 
-        .hero-overlay {
-            background: rgba(0, 0, 0, 0.3);
-            padding: 60px;
-            width: 100%;
-            height: 100%;
+        /* --- MENÚ DE NAVEGACIÓN --- */
+        nav {
+            background-color: var(--purple-bg);
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding: 10px 5%;
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
             display: flex;
-            flex-direction: column;
+            gap: 25px;
             justify-content: center;
-            align-items: center;
         }
 
-        .hero h2 { 
-            font-size: clamp(2rem, 5vw, 4rem); 
-            margin: 0; 
-            font-weight: 300; 
-            letter-spacing: 5px;
-            text-transform: uppercase;
-        }
-
-        .hero p {
-            font-size: 1.2rem;
-            margin: 20px 0;
-            font-weight: 300;
-        }
-
-        /* Sección de Servicios/Productos */
-        .section-title {
-            text-align: center;
-            padding: 80px 0 40px;
-            font-size: 1.2rem;
-            text-transform: uppercase;
-            letter-spacing: 4px;
-            color: #555;
-        }
-
-        .grid-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(45%, 1fr));
-            gap: 15px;
-            padding: 0 15px;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .grid-item {
-            position: relative;
-            height: 600px;
-            overflow: hidden;
-            background: #f9f9f9;
-        }
-
-        .grid-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 1.2s cubic-bezier(0.15, 0, 0.05, 1);
-        }
-
-        .grid-item:hover img { 
-            transform: scale(1.08); 
-        }
-
-        .item-info {
-            position: absolute;
-            bottom: 40px;
-            left: 40px;
-            color: white;
-            z-index: 2;
-        }
-
-        .item-info h3 {
-            font-size: 1.8rem;
-            margin-bottom: 15px;
-            font-weight: 400;
-        }
-
-        /* Botones estilo minimalista */
-        .btn-shop {
-            display: inline-block;
-            padding: 12px 30px;
-            border: 1px solid white;
+        nav ul li a {
             color: white;
             text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
             text-transform: uppercase;
-            font-size: 0.75rem;
-            letter-spacing: 2px;
-            transition: all 0.4s ease;
-            background: rgba(255,255,255,0.1);
-            backdrop-filter: blur(5px);
         }
 
-        .btn-shop:hover { 
-            background: white; 
-            color: black; 
+        /* --- SECCIÓN HERO (REBAJAS) --- */
+        .hero {
+            background-color: var(--purple-bg);
+            color: white;
+            padding: 60px 5%;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
         }
 
-        /* Chat Flotante de Messenger (Visual) */
-        .messenger-float {
+        .hero h1 {
+            font-size: 80px;
+            font-weight: 900;
+            margin: 0;
+            line-height: 0.9;
+            background: linear-gradient(to right, var(--cyan), var(--pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-transform: uppercase;
+        }
+
+        .hero .subtitle {
+            font-size: 24px;
+            margin: 10px 0;
+            font-weight: 700;
+        }
+
+        .hero .promo-tag {
+            background: white;
+            color: var(--purple-bg);
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 15px;
+            font-weight: 800;
+            margin-bottom: 30px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .hero-btn {
+            border: 1px solid white;
+            background: transparent;
+            color: white;
+            padding: 10px 25px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+
+        .hero-btn:hover {
+            background: white;
+            color: var(--purple-bg);
+        }
+
+        /* --- GRID DE PRODUCTOS --- */
+        .content-grid {
+            padding: 40px 5%;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .grid-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            position: relative;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        .grid-card h2 {
+            font-size: 20px;
+            margin-top: 0;
+            font-weight: 800;
+        }
+
+        .grid-card .tag {
+            background: #eee;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 12px;
+            display: inline-block;
+            margin-top: 10px;
+        }
+
+        .grid-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            margin-top: 20px;
+            border-radius: 5px;
+        }
+
+        /* --- TABLA DE PRECIOS --- */
+        .pricing-section {
+            padding: 60px 5%;
+            background-color: var(--white);
+        }
+
+        .pricing-section h2 {
+            text-align: center;
+            color: var(--purple-bg);
+            font-size: 32px;
+            margin-bottom: 40px;
+            font-weight: 900;
+            text-transform: uppercase;
+        }
+
+        .table-container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            overflow: hidden;
+            border: 1px solid #eee;
+        }
+
+        .pricing-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        .pricing-table th, .pricing-table td {
+            padding: 15px 20px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .pricing-table th {
+            background-color: var(--purple-bg);
+            color: white;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 14px;
+        }
+
+        .pricing-table tr:hover {
+            background-color: #f9f9f9;
+        }
+
+        .pricing-table td:last-child {
+            font-weight: 800;
+            color: var(--pink);
+            text-align: right;
+            font-size: 16px;
+        }
+
+        /* --- BOTÓN DE MESSENGER (CHAT) --- */
+        .messenger-chat {
             position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background: #0084FF;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
+            bottom: 25px;
+            right: 25px;
+            background-color: white;
+            padding: 10px 20px;
+            border-radius: 50px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
             display: flex;
             align-items: center;
-            justify-content: center;
-            box-shadow: 0 10px 25px rgba(0,132,255,0.3);
-            z-index: 2000;
-            transition: transform 0.3s;
+            gap: 10px;
+            text-decoration: none;
+            color: #333;
+            font-weight: 700;
+            z-index: 9999;
+            transition: transform 0.2s;
         }
 
-        .messenger-float:hover {
-            transform: scale(1.1);
+        .messenger-chat:hover {
+            transform: scale(1.05);
         }
 
-        .messenger-float svg {
-            width: 30px;
-            fill: white;
+        .messenger-chat svg {
+            width: 24px;
+            height: 24px;
+            fill: #0084FF;
         }
 
-        footer {
-            padding: 100px 20px;
-            text-align: center;
-            font-size: 0.8rem;
-            color: #999;
-            letter-spacing: 1px;
-            border-top: 1px solid #eee;
-            margin-top: 50px;
-        }
-
-        /* Responsivo para celulares */
+        /* --- RESPONSIVO --- */
         @media (max-width: 768px) {
-            .grid-container { grid-template-columns: 1fr; }
-            nav { padding: 20px; }
-            .hero h2 { font-size: 2.5rem; }
+            .hero h1 { font-size: 40px; }
+            .search-container { order: 3; margin: 15px 0 0 0; max-width: 100%; }
+            nav ul { flex-wrap: wrap; font-size: 11px; }
         }
     </style>
 </head>
 <body>
 
-<nav>
-    <div class="logo">Diseños Gaby</div>
-    <div style="font-size: 0.8rem; letter-spacing: 1px;">COLECCIÓN 2026</div>
-</nav>
+    <header>
+        <div class="logo">Diseños Gaby</div>
+        <div class="search-container">
+            <input type="text" placeholder="¿Qué producto personalizado buscas hoy?">
+        </div>
+        <div class="user-icons">
+            <span>👤 Mi cuenta</span>
+            <span>❤️</span>
+            <span>🛒</span>
+        </div>
+    </header>
 
-<section class="hero">
-    <div class="hero-overlay">
-        <h2>Diseño & Hogar</h2>
-        <p>Estética minimalista para marcas con propósito</p>
-        <a href="https://m.me/TU_PAGINA_AQUI" class="btn-shop">Consultar catálogo</a>
-    </div>
-</section>
+    <nav>
+        <ul>
+            <li><a href="#">Inicio</a></li>
+            <li><a href="#">Sublimación</a></li>
+            <li><a href="#">Logotipos</a></li>
+            <li><a href="#">Playeras</a></li>
+            <li><a href="#">Tarjetas</a></li>
+            <li><a href="#">Ofertas</a></li>
+        </ul>
+    </nav>
 
-<h3 class="section-title">Categorías principales</h3>
+    <section class="hero">
+        <div class="promo-tag">DESCUENTO ESPECIAL - PRIMER PEDIDO</div>
+        <h1>PERSONALIZA</h1>
+        <div class="subtitle">TUS IDEAS SIN LÍMITES</div>
+        
+        <div class="hero-buttons">
+            <a href="#" class="hero-btn">Tazas</a>
+            <a href="#" class="hero-btn">Gorras</a>
+            <a href="#" class="hero-btn">Regalos</a>
+        </div>
+    </section>
 
-<div class="grid-container">
-    <div class="grid-item">
-        <img src="https://images.unsplash.com/photo-1513519247388-4e2645d48d6d?auto=format&fit=crop&w=800" alt="Decoración">
-        <div class="item-info">
-            <h3>Identidad Visual</h3>
-            <a href="https://m.me/TU_PAGINA_AQUI" class="btn-shop">Ver Proyectos</a>
+    <div class="content-grid">
+        <div class="grid-card">
+            <h2>Favoritos para Regalar</h2>
+            <p>Tazas mágicas y personalizadas.</p>
+            <div class="tag">Ver colección</div>
+            <img src="https://images.unsplash.com/photo-1514228742587-6b1558fbed20?auto=format&fit=crop&w=500" alt="Taza personalizada">
+        </div>
+
+        <div class="grid-card">
+            <h2>Identidad Visual</h2>
+            <p>Creamos el logotipo de tus sueños.</p>
+            <div class="tag">Desde $199</div>
+            <img src="https://images.unsplash.com/photo-1626785774573-4b799315345d?auto=format&fit=crop&w=500" alt="Logotipo">
+        </div>
+
+        <div class="grid-card">
+            <h2>Playeras Personalizadas</h2>
+            <p>Vinil y sublimación de alta calidad.</p>
+            <div class="tag">Ver diseños</div>
+            <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=500" alt="Playera personalizada">
         </div>
     </div>
-    <div class="grid-item">
-        <img src="https://images.unsplash.com/photo-1494438639946-1ebd1d20bf85?auto=format&fit=crop&w=800" alt="Hogar">
-        <div class="item-info">
-            <h3>Diseño Social Media</h3>
-            <a href="https://m.me/TU_PAGINA_AQUI" class="btn-shop">Saber más</a>
+
+    <!-- SECCIÓN DE PRECIOS -->
+    <section class="pricing-section">
+        <h2>Catálogo de Precios</h2>
+        <div class="table-container">
+            <table class="pricing-table">
+                <thead>
+                    <tr>
+                        <th>Producto / Servicio</th>
+                        <th style="text-align: right;">Precio</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Playera Blanca tacto algodón</td><td>$130.00</td></tr>
+                    <tr><td>Playera de color (todas las tallas)</td><td>$159.00</td></tr>
+                    <tr><td>Playera Polo de color</td><td>$350.00</td></tr>
+                    <tr><td>Playera Con DTF</td><td>$175.00</td></tr>
+                    <tr><td>Pañalero Blanco y Negro</td><td>$130.00</td></tr>
+                    <tr><td>Taza Blanca</td><td>$100.00</td></tr>
+                    <tr><td>Taza Mágica</td><td>$140.00</td></tr>
+                    <tr><td>Gorra</td><td>$150.00</td></tr>
+                    <tr><td>Llavero Sublimación</td><td>$89.00</td></tr>
+                    <tr><td>Gafete 5.1 x 8.90 Metálico</td><td>$150.00</td></tr>
+                    <tr><td>Rompecabezas A4</td><td>$90.00</td></tr>
+                    <tr><td>Mouse Pad (Redondo o Rectangular)</td><td>$70.00</td></tr>
+                    <tr><td>Almohada 30x30</td><td>$130.00</td></tr>
+                    <tr><td>Kit de Etiquetado para ropa</td><td>$350.00</td></tr>
+                </tbody>
+            </table>
+            <p style="text-align: center; padding: 15px; font-size: 13px; color: #666;">
+                * Cotiza precios de mayoreo directamente en nuestro chat. Contamos con servicio día siguiente ($100.00 extra).
+            </p>
         </div>
-    </div>
-</div>
+    </section>
 
-<a href="https://m.me/TU_PAGINA_AQUI" class="messenger-float" title="Chatea con nosotros">
-    <svg viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.145 2 11.258c0 2.908 1.462 5.498 3.746 7.225V22l3.322-1.822c.903.25 1.86.386 2.85.386 5.523 0 10-4.145 10-9.258S17.523 2 12 2zm1.104 12.428l-2.583-2.753-5.043 2.753 5.545-5.889 2.653 2.753 4.973-2.753-5.545 5.889z"/></svg>
-</a>
+    <!-- CHAT DE MESSENGER -->
+    <!-- Reemplaza NOMBRE_DE_TU_PAGINA por tu nombre de usuario de Facebook -->
+    <a href="https://m.me/TU_NOMBRE_DE_PAGINA" class="messenger-chat">
+        <svg viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.145 2 11.258c0 2.908 1.462 5.498 3.746 7.225V22l3.322-1.822c.903.25 1.86.386 2.85.386 5.523 0 10-4.145 10-9.258S17.523 2 12 2zm1.104 12.428l-2.583-2.753-5.043 2.753 5.545-5.889 2.653 2.753 4.973-2.753-5.545 5.889z"/></svg>
+        Chat en línea
+    </a>
 
-<footer>
-    <p>&copy; 2026 DISEÑOS GABY. TODOS LOS DERECHOS RESERVADOS.</p>
-</footer>
+    <footer style="text-align: center; padding: 40px; background: white; margin-top: 20px; font-size: 12px; color: #888;">
+        &copy; 2026 DISEÑOS GABY | DISEÑO PROFESIONAL PERSONALIZADO
+    </footer>
 
 </body>
 </html>
