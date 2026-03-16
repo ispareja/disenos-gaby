@@ -205,7 +205,7 @@
             border-radius: 5px;
         }
 
-        /* --- TABLA DE PRECIOS --- */
+        /* --- NUEVO CATÁLOGO DE PRECIOS (ESTILO IMAGEN) --- */
         .pricing-section {
             padding: 60px 5%;
             background-color: var(--white);
@@ -220,44 +220,92 @@
             text-transform: uppercase;
         }
 
-        .table-container {
-            max-width: 900px;
+        /* Cuadrícula adaptativa: 2 columnas en móvil, hasta 6 en PC */
+        .catalogo-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px 15px;
+            max-width: 1100px;
             margin: 0 auto;
-            background: #fff;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            justify-items: center;
+            padding-bottom: 30px;
+        }
+
+        @media (min-width: 640px) { .catalogo-grid { grid-template-columns: repeat(3, 1fr); } }
+        @media (min-width: 768px) { .catalogo-grid { grid-template-columns: repeat(4, 1fr); } }
+        @media (min-width: 1024px) { .catalogo-grid { grid-template-columns: repeat(6, 1fr); } }
+
+        /* Estilo de la Tarjeta */
+        .producto-card {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 130px;
+            height: 160px;
+            border-radius: 20px;
+            border: 4px solid #d0e5f2;
+            background: linear-gradient(to bottom, #7ab2f5, #4b8df0);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+            transition: transform 0.2s;
+        }
+
+        .producto-card:hover {
+            transform: scale(1.05);
+        }
+
+        .producto-img-container {
+            width: 75px;
+            height: 75px;
+            margin-top: 15px;
+            border-radius: 50%;
             overflow: hidden;
-            border: 1px solid #eee;
+            border: 3px solid white;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+            flex-shrink: 0;
+            background-color: white;
         }
 
-        .pricing-table {
+        .producto-img-container img {
             width: 100%;
-            border-collapse: collapse;
-            text-align: left;
+            height: 100%;
+            object-fit: cover;
         }
 
-        .pricing-table th, .pricing-table td {
-            padding: 15px 20px;
-            border-bottom: 1px solid #eee;
-        }
-
-        .pricing-table th {
-            background-color: var(--purple-bg);
+        .producto-info {
             color: white;
-            font-weight: 700;
+            font-weight: 900;
+            font-size: 11px;
+            text-align: center;
+            line-height: 1.2;
+            text-shadow: 0 2px 2px rgba(0,0,0,0.5);
+            margin-bottom: 18px;
+            padding: 0 5px;
+        }
+
+        .btn-comprar-card {
+            position: absolute;
+            bottom: -15px;
+            background: linear-gradient(to bottom, #ff4b4b, #cc1111);
+            border: 2px solid #ffb3b3;
+            color: white;
+            font-weight: 900;
+            border-radius: 50px;
+            padding: 5px 20px;
+            font-size: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.4);
+            cursor: pointer;
             text-transform: uppercase;
-            font-size: 14px;
+            letter-spacing: 1px;
+            transition: all 0.2s;
         }
 
-        .pricing-table tr:hover {
-            background-color: #f9f9f9;
+        .btn-comprar-card:hover {
+            background: linear-gradient(to bottom, #ff6b6b, #ee2222);
         }
 
-        .pricing-table td:last-child {
-            font-weight: 800;
-            color: var(--pink);
-            text-align: right;
-            font-size: 16px;
+        .btn-comprar-card:active {
+            transform: scale(0.95);
         }
 
         /* --- BOTÓN DE MESSENGER (CHAT) --- */
@@ -426,9 +474,19 @@
     <div id="destacados" class="content-grid">
         <div class="grid-card">
             <h2>Favoritos para Regalar</h2>
-            <p>Tazas mágicas y personalizadas.</p>
+            <p>Playeras personalizadas con glitter y diseños únicos.</p>
             <div class="tag"><a href="#catalogo" style="color: inherit; text-decoration: none;">Ver colección</a></div>
-            <img src="https://images.unsplash.com/photo-1514228742587-6b1558fbed20?auto=format&fit=crop&w=500" alt="Taza personalizada">
+            
+            <!-- Simulación del diseño "March Birthday Queen" visible en la vista previa -->
+            <div style="position: relative; width: 100%; height: 200px; margin-top: 20px; border-radius: 5px; overflow: hidden; background: #111; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                <img src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=500" style="position: absolute; top:0; left:0; width: 100%; height: 100%; object-fit: cover; opacity: 0.5; margin: 0;" alt="Fondo playera negra">
+                <div style="position: relative; z-index: 10; text-align: center; color: #d4af37; filter: drop-shadow(0px 4px 6px rgba(0,0,0,0.9));">
+                    <div style="font-size: 35px; line-height: 1; margin-bottom: -5px;">👑</div>
+                    <div style="font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 14px; letter-spacing: 3px; color: #d4af37;">MARCH</div>
+                    <div style="font-family: cursive; font-size: 38px; line-height: 0.9; color: white; margin: 5px 0; text-shadow: 0 0 5px rgba(255,255,255,0.5);">Birthday</div>
+                    <div style="font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 24px; letter-spacing: 2px; color: #d4af37;">QUEEN</div>
+                </div>
+            </div>
         </div>
 
         <div class="grid-card">
@@ -446,42 +504,148 @@
         </div>
     </div>
 
-    <!-- SECCIÓN DE PRECIOS -->
+    <!-- SECCIÓN DE PRECIOS CON EL NUEVO DISEÑO EN CUADRÍCULA -->
     <section id="catalogo" class="pricing-section">
         <h2>Catálogo de Precios</h2>
-        <div class="table-container">
-            <table class="pricing-table">
-                <thead>
-                    <tr>
-                        <th>Producto / Servicio</th>
-                        <th style="text-align: right;">Precio</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr><td>Playera Blanca tacto algodón</td><td>$130.00</td></tr>
-                    <tr><td>Playera de color (todas las tallas)</td><td>$159.00</td></tr>
-                    <tr><td>Playera Polo de color</td><td>$350.00</td></tr>
-                    <tr><td>Playera Con DTF</td><td>$175.00</td></tr>
-                    <tr><td>Pañalero Blanco y Negro</td><td>$130.00</td></tr>
-                    <tr><td>Taza Blanca</td><td>$100.00</td></tr>
-                    <tr><td>Taza Mágica</td><td>$140.00</td></tr>
-                    <tr><td>Gorra</td><td>$150.00</td></tr>
-                    <tr><td>Llavero Sublimación</td><td>$89.00</td></tr>
-                    <tr><td>Gafete 5.1 x 8.90 Metálico</td><td>$150.00</td></tr>
-                    <tr><td>Rompecabezas A4</td><td>$90.00</td></tr>
-                    <tr><td>Mouse Pad (Redondo o Rectangular)</td><td>$70.00</td></tr>
-                    <tr><td>Almohada 30x30</td><td>$130.00</td></tr>
-                    <tr><td>Kit de Etiquetado para ropa</td><td>$350.00</td></tr>
-                </tbody>
-            </table>
-            <p style="text-align: center; padding: 15px; font-size: 13px; color: #666;">
-                * Cotiza precios de mayoreo directamente en nuestro chat. Contamos con servicio día siguiente ($100.00 extra).
-            </p>
+        
+        <div class="catalogo-grid">
+            <!-- Items de la tienda -->
+            <div class="producto-card" data-nombre="Playera Algodón">
+                <div class="producto-img-container">
+                    <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=200&q=80" alt="">
+                </div>
+                <div class="producto-info">Playera Algodón<br/>$130</div>
+                <button class="btn-comprar-card" onclick="agregarAlCarrito('Playera Algodón', 130)">Comprar</button>
+            </div>
+            <div class="producto-card" data-nombre="Playera Color">
+                <div class="producto-img-container">
+                    <img src="https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=200&q=80" alt="">
+                </div>
+                <div class="producto-info">Playera Color<br/>$159</div>
+                <button class="btn-comprar-card" onclick="agregarAlCarrito('Playera Color', 159)">Comprar</button>
+            </div>
+            <div class="producto-card" data-nombre="Playera Polo">
+                <div class="producto-img-container">
+                    <img src="https://images.unsplash.com/photo-1586363104862-3a5e228968ce?w=200&q=80" alt="">
+                </div>
+                <div class="producto-info">Playera Polo<br/>$350</div>
+                <button class="btn-comprar-card" onclick="agregarAlCarrito('Playera Polo', 350)">Comprar</button>
+            </div>
+            <div class="producto-card" data-nombre="Playera DTF">
+                <div class="producto-img-container">
+                    <img src="https://images.unsplash.com/photo-1562157873-818bc0726f68?w=200&q=80" alt="">
+                </div>
+                <div class="producto-info">Playera DTF<br/>$175</div>
+                <button class="btn-comprar-card" onclick="agregarAlCarrito('Playera DTF', 175)">Comprar</button>
+            </div>
+            <div class="producto-card" data-nombre="Pañalero">
+                <div class="producto-img-container">
+                    <img src="https://images.unsplash.com/photo-1519689680058-324335c77eba?w=200&q=80" alt="">
+                </div>
+                <div class="producto-info">Pañalero B/N<br/>$130</div>
+                <button class="btn-comprar-card" onclick="agregarAlCarrito('Pañalero B/N', 130)">Comprar</button>
+            </div>
+            <div class="producto-card" data-nombre="Taza Blanca">
+                <div class="producto-img-container">
+                    <img src="https://images.unsplash.com/photo-1514228742587-6b1558fbed20?w=200&q=80" alt="">
+                </div>
+                <div class="producto-info">Taza Blanca<br/>$100</div>
+                <button class="btn-comprar-card" onclick="agregarAlCarrito('Taza Blanca', 100)">Comprar</button>
+            </div>
+            
+            <div class="producto-card" data-nombre="Taza Mágica">
+                <div class="producto-img-container">
+                    <img src="https://images.unsplash.com/photo-1577937927133-66ef06acdf18?w=200&q=80" alt="">
+                </div>
+                <div class="producto-info">Taza Mágica<br/>$140</div>
+                <button class="btn-comprar-card" onclick="agregarAlCarrito('Taza Mágica', 140)">Comprar</button>
+            </div>
+            <div class="producto-card" data-nombre="Gorra">
+                <div class="producto-img-container">
+                    <img src="https://images.unsplash.com/photo-1588850561407-ed78c282e89b?w=200&q=80" alt="">
+                </div>
+                <div class="producto-info">Gorra<br/>$150</div>
+                <button class="btn-comprar-card" onclick="agregarAlCarrito('Gorra', 150)">Comprar</button>
+            </div>
+            <div class="producto-card" data-nombre="Llavero">
+                <div class="producto-img-container">
+                    <img src="https://images.unsplash.com/photo-1611077544795-c94c92a5ee75?w=200&q=80" alt="">
+                </div>
+                <div class="producto-info">Llavero<br/>$89</div>
+                <button class="btn-comprar-card" onclick="agregarAlCarrito('Llavero', 89)">Comprar</button>
+            </div>
+            <div class="producto-card" data-nombre="Gafete Metálico">
+                <div class="producto-img-container">
+                    <img src="https://images.unsplash.com/photo-1589384267710-7a170981ca78?w=200&q=80" alt="">
+                </div>
+                <div class="producto-info">Gafete Metálico<br/>$150</div>
+                <button class="btn-comprar-card" onclick="agregarAlCarrito('Gafete Metálico', 150)">Comprar</button>
+            </div>
+            <div class="producto-card" data-nombre="Rompecabezas">
+                <div class="producto-img-container">
+                    <img src="https://images.unsplash.com/photo-1611996575713-1b91866ceea6?w=200&q=80" alt="">
+                </div>
+                <div class="producto-info">Rompecabezas<br/>$90</div>
+                <button class="btn-comprar-card" onclick="agregarAlCarrito('Rompecabezas', 90)">Comprar</button>
+            </div>
+            <div class="producto-card" data-nombre="Mouse Pad">
+                <div class="producto-img-container">
+                    <img src="https://images.unsplash.com/photo-1615663245857-ac1eeb5304ba?w=200&q=80" alt="">
+                </div>
+                <div class="producto-info">Mouse Pad<br/>$70</div>
+                <button class="btn-comprar-card" onclick="agregarAlCarrito('Mouse Pad', 70)">Comprar</button>
+            </div>
+            
+            <div class="producto-card" data-nombre="Almohada">
+                <div class="producto-img-container">
+                    <img src="https://images.unsplash.com/photo-1584100936595-c0654b355040?w=200&q=80" alt="">
+                </div>
+                <div class="producto-info">Almohada<br/>$130</div>
+                <button class="btn-comprar-card" onclick="agregarAlCarrito('Almohada', 130)">Comprar</button>
+            </div>
+            <div class="producto-card" data-nombre="Etiquetas">
+                <div class="producto-img-container">
+                    <img src="https://images.unsplash.com/photo-1601628828688-632f38a5a7d0?w=200&q=80" alt="">
+                </div>
+                <div class="producto-info">Kit Etiquetas<br/>$350</div>
+                <button class="btn-comprar-card" onclick="agregarAlCarrito('Kit Etiquetas', 350)">Comprar</button>
+            </div>
+            <div class="producto-card" data-nombre="Termo Acero">
+                <div class="producto-img-container">
+                    <img src="https://images.unsplash.com/photo-1602143407151-7111542de6e8?w=200&q=80" alt="">
+                </div>
+                <div class="producto-info">Termo Acero<br/>$200</div>
+                <button class="btn-comprar-card" onclick="agregarAlCarrito('Termo Acero', 200)">Comprar</button>
+            </div>
+            <div class="producto-card" data-nombre="Libreta">
+                <div class="producto-img-container">
+                    <img src="https://images.unsplash.com/photo-1531346878377-a541e4ab04ce?w=200&q=80" alt="">
+                </div>
+                <div class="producto-info">Libreta<br/>$120</div>
+                <button class="btn-comprar-card" onclick="agregarAlCarrito('Libreta', 120)">Comprar</button>
+            </div>
+            <div class="producto-card" data-nombre="Mochila">
+                <div class="producto-img-container">
+                    <img src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=200&q=80" alt="">
+                </div>
+                <div class="producto-info">Mochila<br/>$400</div>
+                <button class="btn-comprar-card" onclick="agregarAlCarrito('Mochila', 400)">Comprar</button>
+            </div>
+            <div class="producto-card" data-nombre="Sudadera">
+                <div class="producto-img-container">
+                    <img src="https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=200&q=80" alt="">
+                </div>
+                <div class="producto-info">Sudadera<br/>$350</div>
+                <button class="btn-comprar-card" onclick="agregarAlCarrito('Sudadera', 350)">Comprar</button>
+            </div>
         </div>
+
+        <p style="text-align: center; padding: 15px; font-size: 13px; color: #666;">
+            * Cotiza precios de mayoreo directamente en nuestro chat. Contamos con servicio día siguiente ($100.00 extra).
+        </p>
     </section>
 
     <!-- CHAT DE MESSENGER -->
-    <!-- Reemplaza TU_NOMBRE_DE_PAGINA por tu nombre de usuario de Facebook -->
     <a href="https://m.me/139744146200862" target="_blank" rel="noopener noreferrer" onclick="if(window.innerWidth > 768) { window.open(this.href, 'Chat', 'width=450,height=600'); return false; }" class="messenger-chat">
         <svg viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.145 2 11.258c0 2.908 1.462 5.498 3.746 7.225V22l3.322-1.822c.903.25 1.86.386 2.85.386 5.523 0 10-4.145 10-9.258S17.523 2 12 2zm1.104 12.428l-2.583-2.753-5.043 2.753 5.545-5.889 2.653 2.753 4.973-2.753-5.545 5.889z"/></svg>
         Chat en línea
@@ -513,14 +677,15 @@
     <script>
         // --- BUSCADOR ---
         const buscador = document.getElementById('buscador');
-        const filasPrecios = document.querySelectorAll('.pricing-table tbody tr');
+        const tarjetasProductos = document.querySelectorAll('.producto-card');
 
         buscador.addEventListener('input', function(e) {
             const termino = e.target.value.toLowerCase();
             if(termino.length === 1) document.getElementById('catalogo').scrollIntoView({ behavior: 'smooth' });
-            filasPrecios.forEach(fila => {
-                const texto = fila.textContent.toLowerCase();
-                fila.style.display = texto.includes(termino) ? '' : 'none';
+            tarjetasProductos.forEach(tarjeta => {
+                const texto = tarjeta.getAttribute('data-nombre').toLowerCase();
+                // Usamos 'flex' para que no pierda su diseño al volver a mostrarse
+                tarjeta.style.display = texto.includes(termino) ? 'flex' : 'none';
             });
         });
 
@@ -530,19 +695,6 @@
         const cartBadge = document.getElementById('cart-badge');
         const cartItemsCont = document.getElementById('cart-items');
         const cartTotalPrice = document.getElementById('cart-total-price');
-
-        // Agregar columna de botón a la tabla automáticamente
-        document.querySelector('.pricing-table thead tr').innerHTML += '<th style="text-align: center;">Acción</th>';
-        filasPrecios.forEach(fila => {
-            const celdas = fila.querySelectorAll('td');
-            const nombre = celdas[0].innerText;
-            const precio = parseFloat(celdas[1].innerText.replace('$', ''));
-            
-            const btnTd = document.createElement('td');
-            btnTd.style.textAlign = 'center';
-            btnTd.innerHTML = `<button onclick="agregarAlCarrito('${nombre}', ${precio})" style="background:var(--cyan); color:var(--purple-bg); border:none; padding:5px 15px; border-radius:5px; font-weight:bold; cursor:pointer;">Añadir</button>`;
-            fila.appendChild(btnTd);
-        });
 
         function toggleCarrito() {
             cartSidebar.classList.toggle('active');
@@ -610,7 +762,6 @@
                     window.open('https://m.me/139744146200862', '_blank');
                 });
             } catch (err) {
-                // Si el navegador bloquea copiar (pasa en algunos celulares viejos)
                 window.open('https://m.me/139744146200862', '_blank');
             }
         }
